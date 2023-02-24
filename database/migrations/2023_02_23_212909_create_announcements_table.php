@@ -19,8 +19,8 @@ class CreateAnnouncementsTable extends Migration
             $table->date('dueDate');
             $table->unsignedBigInteger('receiverID');
             $table->unsignedBigInteger('senderID');
-            $table->foreign('receiverID')->references('id')->on('courses');
-            $table->foreign('senderID')->references('id')->on('courses');
+            $table->foreign('receiverID')->references('id')->on('users');
+            $table->foreign('senderID')->references('id')->on('users');
             $table->tinyInteger('isDeleted')->default(0);
             $table->timestamps();
         });
