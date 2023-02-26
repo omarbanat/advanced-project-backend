@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_sections', function (Blueprint $table) {
+        Schema::create('enrollments', function (Blueprint $table) {
             $table->ID()->autoIncrement();
+            $table->integer('userID');
+            $table->integer('courseCycleID');
             $table->integer('classID');
-            $table->integer('sectionID');
-            $table->boolean('isDeleted')->default(false);
+            $table->boolean('cancelled');
+            $table->string('cancelationReason');
+            $table->boolean('isDeleted');
             $table->dateTime('createdAt');
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_sections');
+        Schema::dropIfExists('enrollment');
     }
 };
