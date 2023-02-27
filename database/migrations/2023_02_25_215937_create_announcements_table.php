@@ -12,17 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->id('ID');
-            $table->string('title');
-            $table->string('description');
-            $table->date('publishedDate')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->id();
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedBigInteger('receiverID')->nullable();
-            $table->unsignedBigInteger('senderID')->nullable();
             $table->foreign('receiverID')->references('id')->on('users');
+            $table->unsignedBigInteger('senderID')->nullable();
             $table->foreign('senderID')->references('id')->on('users');
-            $table->tinyInteger('isDeleted')->default(0);
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
         });
     }
 

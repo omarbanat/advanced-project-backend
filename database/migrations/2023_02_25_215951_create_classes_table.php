@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('classes', function (Blueprint $table) {
-            $table->id('ID');
-            $table->string('className');
-            $table->integer('studentsNumber');
-            $table->date('createdAt');
-            $table->tinyInteger('isDeleted')->default(0);
+            $table->id();
+            $table->string('className')->nullable();
+            $table->integer('studentsNumber')->nullable();
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
         });
     }
 

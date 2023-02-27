@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('enrollments', function (Blueprint $table) {
-            $table->ID()->autoIncrement();
-            $table->integer('userID');
-            $table->integer('courseCycleID');
-            $table->integer('classID');
-            $table->boolean('cancelled');
-            $table->string('cancelationReason');
-            $table->boolean('isDeleted');
-            $table->dateTime('createdAt');
+            $table->id();
+            $table->unsignedBigInteger('userID')->nullable();
+            $table->foreign('userID')->references('id')->on('users')->nullable();
+            $table->unsignedBigInteger('courseCycleID')->nullable();
+            $table->foreign('courseCycleID')->references('id')->on('courses_cycle')->nullable();
+            $table->unsignedBigInteger('classID')->nullable();
+            $table->foreign('classID')->references('id')->on('classes')->nullable();
+            $table->boolean('cancelled')->default(false);
+            $table->longText('cancelationReason')->nullable();
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
         });
     }
 

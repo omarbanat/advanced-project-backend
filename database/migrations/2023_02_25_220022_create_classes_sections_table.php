@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('classes_sections', function (Blueprint $table) {
-            $table->ID()->autoIncrement();
-            $table->integer('classID');
-            $table->integer('sectionID');
+            $table->id();
+            $table->unsignedBigInteger('classID');
+            $table->foreign('classID')->references('id')->on('classes')->nullable();
+            $table->unsignedBigInteger('sectionID');
+            $table->foreign('sectionID')->references('id')->on('sections')->nullable();
             $table->boolean('isDeleted')->default(false);
-            $table->dateTime('createdAt');
+            $table->timestamps();
         });
     }
 

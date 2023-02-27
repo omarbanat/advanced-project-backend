@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('assignment_submission', function (Blueprint $table) {
-            $table->ID()->autoIncrement;
-            $table->unsignedBigInteger('userID');
-            $table->foreign('userID')->references('id')->on('users');
-            $table->unsignedBigInteger('assignmentID');
-            $table->foreign('assignmentID')->references('id')->on('assignments');
-            $table->integer('grade');
-            $table->dateTime('submissionDate');
-            $table->boolean('isDeleted');
+            $table->id();
+            $table->unsignedBigInteger('userID')->nullable();
+            $table->foreign('userID')->references('id')->on('users')->nullable();
+            $table->unsignedBigInteger('assignmentID')->nullable();
+            $table->foreign('assignmentID')->references('id')->on('assignments')->nullable();
+            $table->integer('grade')->nullable();
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
         });
     }
 
