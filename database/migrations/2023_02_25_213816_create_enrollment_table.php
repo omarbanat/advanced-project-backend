@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('userID')->nullable();
             $table->foreign('userID')->references('id')->on('users')->nullable();
             $table->unsignedBigInteger('courseCycleID')->nullable();
-            $table->foreign('courseCycleID')->references('id')->on('courses_cycle')->nullable();
+            $table->foreign('courseCycleID')->references('id')->on('course_cycles')->nullable();
             $table->unsignedBigInteger('classID')->nullable();
             $table->foreign('classID')->references('id')->on('classes')->nullable();
             $table->boolean('cancelled')->default(false);
