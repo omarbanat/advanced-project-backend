@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('attendance', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('userID');
-            $table->foreign('userID')->references('id')->on('users');
-            $table->string('attendanceType');
-            $table->date('date');
-            $table->boolean('isDeleted');
-            });
-        }
+            $table->unsignedBigInteger('userID')->nullable();
+            $table->foreign('userID')->references('id')->on('users')->nullable();
+            $table->string('attendanceType')->nullable();
+            $table->date('date')->nullable();
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

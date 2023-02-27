@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('course_cycles', function (Blueprint $table) {
-            $table->ID()->autoIncrement();
-            $table->integer('courseID');
-            $table->date('startDate');
-            $table->date('endDate');
-            $table->boolean('isDeleted');
-            $table->dateTime('createdAt');
+            $table->id();
+            $table->unsignedBigInteger('courseID')->nullable();
+            $table->foreign('courseID')->references('id')->on('courses')->nullable();
+            $table->date('startDate')->nullable();
+            $table->date('endDate')->nullable();
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
         });
     }
 

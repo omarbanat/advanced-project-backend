@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('assignments', function (Blueprint $table) {
-            $table->ID()->autoIncrement;
-            $table->string('title');
-            $table->string('description');
-            $table->dateTime('publishedDate')->default(now());
+            $table->id();
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
             $table->dateTime('dueDate')->nullable();
-            $table->integer('grade');
-            $table->tinyInteger('isDeleted')->default(0);
+            $table->integer('grade')->nullable();
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

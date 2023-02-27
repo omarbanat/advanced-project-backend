@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-      
+
         Schema::create('users', function (Blueprint $table) {
-            $table->ID()->autoIncrement();
-            $table->string('fName');
-            $table->string('lName');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->date('DOB');
-            $table->integer('phoneNumber');
-            $table->string('gender');
-            $table->string('role');
+            $table->id();
+            $table->string('fName')->nullable();
+            $table->string('lName')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
+            $table->date('DOB')->nullable();
+            $table->integer('phoneNumber')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('role')->nullable();
             $table->boolean('isDeleted')->default(false);
-            $table->dateTime('createdAt');
+            $table->timestamps();
         });
     }
 
