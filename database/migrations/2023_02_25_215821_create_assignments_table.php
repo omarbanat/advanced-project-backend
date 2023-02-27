@@ -15,14 +15,13 @@ return new class extends Migration
             $table->ID()->autoIncrement;
             $table->string('title');
             $table->string('description');
-            $table->dateTime('publishedDate');
-            $table->dateTime('dueDate');
+            $table->dateTime('publishedDate')->default(now());
+            $table->dateTime('dueDate')->nullable();
             $table->integer('grade');
-            $table->boolean('isDeleted');
+            $table->tinyInteger('isDeleted')->default(0);
+            $table->timestamps();
         });
     }
-
-
 
     /**
      * Reverse the migrations.

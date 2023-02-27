@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AssignmentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::Post('/announcements/create', [AnnouncementController::class, "addAnnouncement"]);
+Route::get('/announcements', [AnnouncementController::class, "showAnnouncement"]);
+Route::PUT('/announcements/edit/{id}', [AnnouncementController::class, "editAnnouncement"]);
+Route::delete('/announcements/delete/{id}', [AnnouncementController::class, "deleteAnnouncement"]);
+
+Route::Post('/assignments/create', [AssignmentController::class, "addAssignment"]);
+Route::get('/assignments', [AssignmentController::class, "showAssignment"]);
+Route::PUT('/assignments/edit/{id}', [AssignmentController::class, "editAssignment"]);
+Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteAssignment"]);
+
+
+
+
+
+
