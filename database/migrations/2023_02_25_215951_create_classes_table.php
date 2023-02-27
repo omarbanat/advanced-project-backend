@@ -10,13 +10,13 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    { Schema::create('attendance', function (Blueprint $table) {
-        $table->ID()->autoIncrement;
-        $table->unsignedBigInteger('userID');
-        $table->foreign('userID');
-        $table->string('attendanceType');
-        $table->date('date');
-        $table->boolean('isDeleted');
+    {
+        Schema::create('classes', function (Blueprint $table) {
+            $table->id();
+            $table->string('className')->nullable();
+            $table->integer('studentsNumber')->nullable();
+            $table->boolean('isDeleted')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('classes');
     }
 };
