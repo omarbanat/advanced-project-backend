@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 class AttendanceController extends Controller
 {
     public function addAttendance(Request $request){
-        $attendance = new Attendance;
+         $attendance = new attendance;
+         error_log($attendance);
          $attendance->attendanceType = $request->input('attendanceType');
-         $attendance->date = \Carbon\Carbon::now();
-         $attendance->isDeleted = false;
+         $attendance->date = $request->input('date');
          $attendance->save();
          return response()->json([
           "message" =>$request->all()
@@ -31,5 +31,28 @@ class AttendanceController extends Controller
     ]);
 }
 
+            public function editAttendance(Request $request, $id){
+            $attendance = Attendance::find($id);
+            $attendance->attendanceType = $request->input('attendanceType');
+            $attendance->date = $request->input('date');
+        
+            $attendance->save();
+            return response()->json([
+                "message" => "Attendance updated successfully"
+            ]);
+        }
+        
+ public function deleteAttendance($id)
+ {
+     $attendance = attendance::find($id);
+     $attendance->delete();
+
+      return response()->json([
+         "message" => "Deleted successfuly",
+     ]);} 
+
+
+       } 
+
     
-}
+

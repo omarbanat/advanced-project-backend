@@ -31,11 +31,6 @@ Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteA
 
 
 Route::Post('/attendance/add',[AttendanceController::class,'addAttendance']);
-
 Route::get('/attendance/get', [AttendanceController::class, 'getAttendance']);
-
-
-
-
-
-
+Route::PUT('/attendance/edit/{id}', [AttendanceController::class, 'editAttendance']);
+Route::delete('/attendance/delete/{id}', [AttendanceController::class, 'deleteAttendance']);
