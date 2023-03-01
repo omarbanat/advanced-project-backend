@@ -7,38 +7,85 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Models\courses;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+
 
 class CourseController extends Controller
 {
 
     public function getCourses(){
-        $courses = courses::all();
+        try {
+            $courses = courses::all();
+            return response()->json([
+                "message" => "Courses retrieved successfully",
+                "data" => $courses
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                "error" => "Failed to retrieve courses: " . $e->getMessage()
+            ], 500);    
+        }
+    }
+    
+
+
+    public function addCourses(Request $request){
+        try {
+            $validatedData = $request->validate([
+                'title' => 'required',
+                'description' => 'required',
+                'durationByDays' => 'required|numeric'
+            ]);
+    
+            $courses = new courses;
+            $courses->title = $validatedData['title'];
+            $courses->description = $validatedData['description'];
+            $courses->durationByDays = $validatedData['durationByDays'];
+            $courses->save();
+    
+            return response()->json([
+                "message" => "Course created successfully",
+                "data" => $courses
+
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                "error" => "Failed to create course: " . $e->getMessage()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                "error" => "Failed to create course: " . $e->getMessage()
+            ], 500);
+        }
+    }
+    
+
+    public function editCourses(Request $request, $id){
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'durationByDays' => 'required'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->first()
+            ], 400);
+        }
+    
+        $courses = Courses::find($id);
+        $courses->title = $request->json('title');
+        $courses->description = $request->json('description');
+        $courses->durationByDays = $request->json('durationByDays');
+        $courses->save();
     
         return response()->json([
-            "message" => "Courses retrieved successfully",
-            "data" => $courses
+            "message" => "Course updated successfully"
         ]);
     }
-    public function addCourses(Request $request){
-        $courses = new courses;
-        $courses->title = $request->input('title');
-        $courses->description = $request->input('description');
-        $courses->durationByDays = $request->input('durationByDays');
-        $courses->save();
-        return response()->json([
-         "message" =>$request->all()
-        ]);
-     }
-     public function editCourses(Request $request, $id){
-        $courses = Courses::find($id);
-        $courses->title = $request->input('title');
-        $courses->description = $request->input('description');
-        $courses->durationByDays = $request->input('durationByDays');
-        $courses->save();
-        return response()->json([
-                "message" => "Course updated successfully"
-            ]);
-        }
+    
+    
+
         public function deleteCourses($id){
             $courses = Courses::find($id);
             $courses->delete();

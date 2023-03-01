@@ -37,7 +37,10 @@ Route::get('/attendance/get', [AttendanceController::class, 'getAttendance']);
 Route::PUT('/attendance/edit/{id}', [AttendanceController::class, 'editAttendance']);
 Route::delete('/attendance/delete/{id}', [AttendanceController::class, 'deleteAttendance']);    
 
-Route::Post('/courses/create', [CourseController::class, 'addCourses']); 
-Route::get('/courses/get', [CourseController::class, 'getCourses']);
-Route::PUT('/courses/edit/{id}', [CourseController::class, 'editCourses']);
-Route::delete('/courses/delete/{id}', [CourseController::class, 'deleteCourses']);
+Route::prefix('courses')->group(function () {
+    Route::Post('/create', [CourseController::class, 'addCourses']); 
+    Route::get('/get', [CourseController::class, 'getCourses']);
+    Route::PUT('/edit/{id}', [CourseController::class, 'editCourses']);
+    Route::delete('/delete/{id}', [CourseController::class, 'deleteCourses']);
+});
+
