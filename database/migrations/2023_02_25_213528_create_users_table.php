@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
             $table->date('DOB')->nullable();
-            $table->integer('phoneNumber')->nullable();
+            $table->string('phoneNumber')->nullable();
             $table->string('gender')->nullable();
             $table->string('role')->nullable();
             $table->boolean('isDeleted')->default(false);

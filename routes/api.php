@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,8 +30,9 @@ Route::get('/assignments', [AssignmentController::class, "showAssignment"]);
 Route::PUT('/assignments/edit/{id}', [AssignmentController::class, "editAssignment"]);
 Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteAssignment"]);
 
-
-
-
-
-
+Route::prefix('user')->group(function () {
+    Route::get('/getAll', [UserController::class, 'getAllUsers']);
+    Route::post('/add', [UserController::class, 'addUser']);
+    Route::put('/update/{id}', [UserController::class, 'updateUser']);
+    Route::put('/delete/{id}/{delete?}', [UserController::class, 'deleteUser']);
+});
