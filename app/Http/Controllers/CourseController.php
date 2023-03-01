@@ -86,13 +86,26 @@ class CourseController extends Controller
     
     
 
-        public function deleteCourses($id){
+    public function deleteCourses($id) {
+        try {
             $courses = Courses::find($id);
+            if (!$courses) {
+                return response()->json([
+                    "error" => "Course not found"
+                ], 404);
+            }
             $courses->delete();
-
+    
             return response()->json([
-                "message" => "Deleted successfuly"
+                "message" => "Course deleted successfully"
             ]);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                "error" => "Failed to delete course: " . $e->getMessage()
+            ], 500);
         }
-
+    }
+    
+    
     }
