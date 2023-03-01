@@ -7,6 +7,16 @@ use App\Models\assignments;
 class AssignmentController extends Controller
 {
     public function addAssignment(Request $request){
+
+
+        $request->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'grade'=>'required'
+        ]);
+
+
+
         $assignment = new Assignments;
          $assignment->title = $request->input('title');
          $assignment->description = $request->input('description');
