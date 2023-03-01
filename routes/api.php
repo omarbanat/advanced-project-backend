@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\CourseController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,4 +35,9 @@ Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteA
 Route::Post('/attendance/add',[AttendanceController::class,'addAttendance']);
 Route::get('/attendance/get', [AttendanceController::class, 'getAttendance']);
 Route::PUT('/attendance/edit/{id}', [AttendanceController::class, 'editAttendance']);
-Route::delete('/attendance/delete/{id}', [AttendanceController::class, 'deleteAttendance']);
+Route::delete('/attendance/delete/{id}', [AttendanceController::class, 'deleteAttendance']);    
+
+Route::Post('/courses/create', [CourseController::class, 'addCourses']); 
+Route::get('/courses/get', [CourseController::class, 'getCourses']);
+Route::PUT('/courses/edit/{id}', [CourseController::class, 'editCourses']);
+Route::delete('/courses/delete/{id}', [CourseController::class, 'deleteCourses']);

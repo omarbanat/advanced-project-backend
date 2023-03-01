@@ -31,13 +31,13 @@ class AttendanceController extends Controller
     ]);
 }
 
-            public function editAttendance(Request $request, $id){
-            $attendance = Attendance::find($id);
-            $attendance->attendanceType = $request->input('attendanceType');
-            $attendance->date = $request->input('date');
+        public function editAttendance(Request $request, $id){
+        $attendance = Attendance::find($id);
+        $attendance->attendanceType = $request->input('attendanceType');
+        $attendance->date = $request->input('date');
         
-            $attendance->save();
-            return response()->json([
+        $attendance->save();
+        return response()->json([
                 "message" => "Attendance updated successfully"
             ]);
         }
