@@ -31,7 +31,7 @@ Route::PUT('/assignments/edit/{id}', [AssignmentController::class, "editAssignme
 Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteAssignment"]);
 
 Route::prefix('user')->group(function () {
-    Route::get('/getAll', [UserController::class, 'getAllUsers']);
+    Route::get('/getAll/{role?}', [UserController::class, 'getAllUsers']);
     Route::post('/add', [UserController::class, 'addUser']);
     Route::put('/update/{id}', [UserController::class, 'updateUser']);
     Route::put('/delete/{id}/{delete?}', [UserController::class, 'deleteUser']);
