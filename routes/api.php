@@ -33,5 +33,6 @@ Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteA
 Route::prefix('user')->group(function () {
     Route::get('/getAll', [UserController::class, 'getAllUsers']);
     Route::post('/add', [UserController::class, 'addUser']);
+    Route::put('/update/{id}', [UserController::class, 'updateUser']);
+    Route::put('/delete/{id}/{delete?}', [UserController::class, 'deleteUser']);
 });
-Route::put('user/update/{id}', [UserController::class, 'updateUser']);

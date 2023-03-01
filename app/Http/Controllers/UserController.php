@@ -50,61 +50,10 @@ class UserController extends Controller
 
     public function updateUser(Request $request, $id)
     {
+        try {
+            $user = User::findOrFail($id);
 
-        // $user = User::find($id);
-
-        // if ($user) {
-        //     error_log("REQUEST: " . $request);
-        //     error_log("TEST");
-        //     error_log($request['fName']);
-        //     // $user->fName = $request->fName;
-        //     error_log("ENTERED HERE");
-
-        //     // if ($request->has('lName')) {
-        //     //     $user->lName = $request->input('lName');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     // if ($request->has('email')) {
-        //     //     $user->email = $request->input('email');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     // if ($request->has('password')) {
-        //     //     $user->password = $request->input('password');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     // if ($request->has('DOB')) {
-        //     //     $user->DOB = $request->input('DOB');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     // if ($request->has('phoneNumber')) {
-        //     //     $user->phoneNumber = $request->input('phoneNumber');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     // if ($request->has('gender')) {
-        //     //     $user->gender = $request->input('gender');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     // if ($request->has('role')) {
-        //     //     $user->role = $request->input('role');
-        //     //     $fieldUpdated = true;
-        //     // }
-
-        //     $user->save();
-        //     return $user;
-        // } else {
-        //     return response()->json(['message' => 'User not found!'], 404);
-        // }
-
-        $user = User::findOrFail($id);
-
-        if ($user) {
-            $user->fName = $request->input('fName', 'kamel');
+            $user->fName = $request->input('fName', $user->fName);
             $user->lName = $request->input('lName', $user->lName);
             $user->email = $request->input('email', $user->email);
             $user->password = $request->input('password', $user->password);
@@ -112,16 +61,49 @@ class UserController extends Controller
             $user->phoneNumber = $request->input('phoneNumber', $user->phoneNumber);
             $user->gender = $request->input('gender', $user->gender);
             $user->role = $request->input('role', $user->role);
-            $user->isDeleted = $request->input('isDeleted', $user->isDeleted);
-            $user->update();
-            return $user;
-        } else {
+            try {
+                $user->update();
+                return response()->json([
+                    'message' => 'User updated successfully!!',
+                    'data' => $user
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'message' => 'Error occured while updating!',
+                    'error' => $th
+                ], 404);
+            }
+        } catch (\Throwable $th) {
             return
-                response()->json(['message' => 'User not found!'], 404);
+                response()->json(['message' => 'User not found!', 'error' => $th], 404);
         }
     }
 
-    public function deleteUser(Request $request)
+    public function deleteUser(Request $request, $id, $delete = true)
     {
+        try {
+            if ($delete != true) {
+                $delete = false;
+            }
+
+            $user = User::findOrFail($id);
+
+            $user->isDeleted = $delete;
+
+            try {
+                $user->update();
+                return response()->json([
+                    'message' => 'User deleted successfully!!'
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'message' => 'Error occured while deleting!',
+                    'error' => $th
+                ], 404);
+            }
+        } catch (\Throwable $th) {
+            return
+                response()->json(['message' => 'User not found!', 'error' => $th], 404);
+        }
     }
 }
