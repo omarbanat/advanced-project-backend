@@ -38,7 +38,7 @@ class UserController extends Controller
             'DOB' => 'required|date',
             'phoneNumber' => 'required|regex:/^[0-9]{11}$/',
             'gender' => 'required|in:male,female',
-            'role' => 'required|in:admin,teacher,student',
+            'role' => 'required|in:admin,mentor,student',
         ];
 
         $validator = Validator::make($request->all(), $rules);
