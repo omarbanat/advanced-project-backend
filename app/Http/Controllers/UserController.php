@@ -10,12 +10,22 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function getAllUsers()
+    public function getAllUsers($role = null)
     {
-        $user = User::all();
-        return response()->json([
-            'message' => $user
-        ]);
+        try {
+            if ($role) {
+                return User::where('role', '=', $role)->get();
+            }
+
+            $user = User::all();
+            return response()->json([
+                'message' => $user
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Errir retreving all users...", 'error' => $th
+            ], 500);
+        }
     }
 
     public function addUser(Request $request)
