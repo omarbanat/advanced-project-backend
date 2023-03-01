@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AssignmentController;
-
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseCycleController;
 use App\Http\Controllers\EnrollmentController;
 use App\Models\CourseCycle;
 use App\Models\Enrollment;
+use App\Http\Controllers\sectionController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------

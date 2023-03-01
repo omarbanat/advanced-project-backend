@@ -10,6 +10,12 @@ use App\Models\announcements;
 class AnnouncementController extends Controller
 {
     public function addAnnouncement(Request $request){
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'sentBy' => 'required',
+            'to' => 'required',
+        ]);
         $announcement = new Announcements;
          $announcement->title = $request->input('title');
          $announcement->description = $request->input('description');
@@ -34,7 +40,12 @@ class AnnouncementController extends Controller
 
       public function editAnnouncement(Request $request, $id)  {
 
-      
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'sentBy' => 'required',
+            'to' => 'required',
+        ]);
 
           $announcement = Announcements::where('id',$id)->update(
             [

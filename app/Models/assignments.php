@@ -20,3 +20,4 @@ class assignments extends Model
         "dueDate"
     ];
 }
+

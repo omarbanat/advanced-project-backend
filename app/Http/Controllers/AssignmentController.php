@@ -40,13 +40,22 @@ class AssignmentController extends Controller
 
       public function editAssignment(Request $request, $id) {
 
+
+    $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+        'dueDate' => 'required',
+        'grade' => 'required',
+    ]);
       
         $assignment = Assignments::where('id',$id)->update(
+
+
             [
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'dueDate' => $request->input('dueDate'),
-                'grade' => $request->input('grade'),
+                'title' => $request->input('title')->require,
+                'description' => $request->input('description')->require,
+                'dueDate' => $request->input('dueDate')->require,
+                'grade' => $request->input('grade')->require,
             ]
         );
           
