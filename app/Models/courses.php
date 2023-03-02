@@ -15,7 +15,8 @@ class courses extends Model
         'durationByDays',
     ];
 
-    public function courses(){
-        return $this->belongsToMany(users::class);
+    public function courseCycle()
+    {
+        return $this->belongsToMany(courseCycle::class);
     }
 }
