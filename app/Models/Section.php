@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+
+
+    protected $fillable = [
+        "sectionName",
+        "capacity",
+        
+    ];
+
+
     use HasFactory;
 }
