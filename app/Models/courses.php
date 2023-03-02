@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class courses extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'durationByDays',
+    ];
+
+    public function courses(){
+        return $this->belongsToMany(users::class);
+    }
 }

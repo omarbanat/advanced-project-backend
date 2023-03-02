@@ -10,12 +10,22 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function getAllUsers()
+    public function getAllUsers($role = null)
     {
-        $user = User::all();
-        return response()->json([
-            'message' => $user
-        ]);
+        try {
+            if ($role) {
+                return User::where('role', '=', $role)->get();
+            }
+
+            $user = User::all();
+            return response()->json([
+                'message' => $user
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Errir retreving all users...", 'error' => $th
+            ], 500);
+        }
     }
 
     public function addUser(Request $request)
@@ -28,7 +38,7 @@ class UserController extends Controller
             'DOB' => 'required|date',
             'phoneNumber' => 'required|regex:/^[0-9]{11}$/',
             'gender' => 'required|in:male,female',
-            'role' => 'required|in:admin,teacher,student',
+            'role' => 'required|in:admin,mentor,student',
         ];
 
         $validator = Validator::make($request->all(), $rules);
