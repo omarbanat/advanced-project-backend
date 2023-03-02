@@ -76,4 +76,10 @@ class sectionController extends Controller
 
 }
 
+public function restoreSection($id){
+    Section::withTrashed()->find($id)->restore();
+    return back();
+}
+
+
 }

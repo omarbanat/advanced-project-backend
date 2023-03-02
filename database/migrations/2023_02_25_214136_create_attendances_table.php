@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('userID')->references('id')->on('users')->nullable();
             $table->string('attendanceType')->nullable();
             $table->date('date')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

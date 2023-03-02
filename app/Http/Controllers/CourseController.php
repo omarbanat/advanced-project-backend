@@ -109,4 +109,10 @@ class CourseController extends Controller
             ], 500);
         }
     }
+
+public function restoreCourses($id){
+    Courses::withTrashed()->find($id)->restore();
+    return back();
+}
+
 }

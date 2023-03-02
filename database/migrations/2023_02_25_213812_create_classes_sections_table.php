@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('classID')->references('id')->on('classes')->nullable();
             $table->unsignedBigInteger('sectionID');
             $table->foreign('sectionID')->references('id')->on('sections')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phoneNumber')->nullable();
             $table->string('gender')->nullable();
             $table->string('role')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

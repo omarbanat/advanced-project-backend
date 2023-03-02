@@ -51,6 +51,12 @@ class AttendanceController extends Controller
          "message" => "Deleted successfuly",
      ]);} 
 
+public function restoreAttendance($id){
+    Attendance::withTrashed()->find($id)->restore();
+    return back();
+}
+
+
 
        } 
 

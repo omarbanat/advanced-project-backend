@@ -17,11 +17,12 @@ return new class extends Migration
             $table->foreign('userID')->references('id')->on('users')->nullable();
             $table->unsignedBigInteger('courseCycleID')->nullable();
             $table->foreign('courseCycleID')->references('id')->on('course_cycles')->nullable();
-            $table->unsignedBigInteger('classID')->nullable();
-            $table->foreign('classID')->references('id')->on('classes')->nullable();
+            $table->unsignedBigInteger('classSectionID')->nullable();
+            $table->foreign('classSectionID')->references('id')->on('classes_sections')->nullable();
             $table->boolean('cancelled')->default(false);
-            $table->longText('cancelationReason')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->longText('cancellationReason')->nullable();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

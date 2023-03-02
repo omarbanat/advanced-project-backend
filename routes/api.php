@@ -28,33 +28,45 @@ Route::Post('/announcements/create', [AnnouncementController::class, "addAnnounc
 Route::get('/announcements', [AnnouncementController::class, "showAnnouncement"]);
 Route::PUT('/announcements/edit/{id}', [AnnouncementController::class, "editAnnouncement"]);
 Route::delete('/announcements/delete/{id}', [AnnouncementController::class, "deleteAnnouncement"]);
+Route::get('/announcements/restore/{id}', [AnnouncementController::class, "restoreAnnouncement"]);
+
 
 Route::Post('/assignments/create', [AssignmentController::class, "addAssignment"]);
 Route::get('/assignments', [AssignmentController::class, "showAssignment"]);
 Route::PUT('/assignments/edit/{id}', [AssignmentController::class, "editAssignment"]);
 Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteAssignment"]);
+Route::get('/assignments/restore/{id}', [AssignmentController::class, "restoreAssignment"]);
+
 
 Route::Post('/attendance/add',[AttendanceController::class,'addAttendance']);
 Route::get('/attendance/get', [AttendanceController::class, 'getAttendance']);
 Route::PUT('/attendance/edit/{id}', [AttendanceController::class, 'editAttendance']);
 Route::delete('/attendance/delete/{id}', [AttendanceController::class, 'deleteAttendance']);    
+Route::get('/attendance/restore/{id}', [AttendanceController::class, 'restoreAttendance']);    
+
 
 Route::prefix('courses')->group(function () {
     Route::Post('/create', [CourseController::class, 'addCourses']); 
     Route::get('/get', [CourseController::class, 'getCourses']);
     Route::PUT('/edit/{id}', [CourseController::class, 'editCourses']);
     Route::delete('/delete/{id}', [CourseController::class, 'deleteCourses']);
+    Route::get('/restore/{id}', [CourseController::class, 'restoreCourses']);
+
 });
 
 Route::Post('/classes/create', [ClassController::class, "addclass"]);
 Route::get('/classes', [ClassController::class, "showclass"]);
 Route::PUT('/classes/edit/{id}', [ClassController::class, "editclass"]);
 Route::delete('/classes/delete/{id}', [ClassController::class, "deleteclass"]);
+Route::get('/classes/restore/{id}', [ClassController::class, "restoreClass"]);
+
 
 
 Route::prefix('user')->group(function () {
     Route::get('/getAll/{role?}', [UserController::class, 'getAllUsers']);
     Route::post('/add', [UserController::class, 'addUser']);
     Route::put('/update/{id}', [UserController::class, 'updateUser']);
-    Route::put('/delete/{id}/{delete?}', [UserController::class, 'deleteUser']);
+    Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
+    Route::get('/restore/{id}', [UserController::class, 'restoreUser']);
+
 });

@@ -74,4 +74,10 @@ class AssignmentController extends Controller
         }
 
 }
+
+public function restoreAssignment($id){
+    Assignments::withTrashed()->find($id)->restore();
+    return back();
+}
+
 }

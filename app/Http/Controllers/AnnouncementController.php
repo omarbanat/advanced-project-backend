@@ -70,4 +70,9 @@ public function deleteAnnouncement($id) {
     }
 }
 
+public function restoreAnnouncement($id){
+    Announcements::withTrashed()->find($id)->restore();
+    return back();
+}
+
 }

@@ -70,4 +70,10 @@ class ClassController extends Controller
 
 }
 
+public function restoreClass($id){
+    classModel::withTrashed()->find($id)->restore();
+    return back();
+}
+
+
 }

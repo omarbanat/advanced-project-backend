@@ -89,31 +89,47 @@ class UserController extends Controller
         }
     }
 
-    public function deleteUser(Request $request, $id, $delete = true)
-    {
-        try {
-            if ($delete != true) {
-                $delete = false;
-            }
+    // public function deleteUser(Request $request, $id, $delete = true)
+    // {
+    //     try {
+    //         if ($delete != true) {
+    //             $delete = false;
+    //         }
 
-            $user = User::findOrFail($id);
+    //         $user = User::findOrFail($id);
 
-            $user->isDeleted = $delete;
+    //         $user->isDeleted = $delete;
 
-            try {
-                $user->update();
-                return response()->json([
-                    'message' => 'User deleted successfully!!'
-                ], 200);
-            } catch (\Throwable $th) {
-                return response()->json([
-                    'message' => 'Error occured while deleting!',
-                    'error' => $th
-                ], 404);
-            }
-        } catch (\Throwable $th) {
-            return
-                response()->json(['message' => 'User not found!', 'error' => $th], 404);
+    //         try {
+    //             $user->update();
+    //             return response()->json([
+    //                 'message' => 'User deleted successfully!!'
+    //             ], 200);
+    //         } catch (\Throwable $th) {
+    //             return response()->json([
+    //                 'message' => 'Error occured while deleting!',
+    //                 'error' => $th
+    //             ], 404);
+    //         }
+    //     } catch (\Throwable $th) {
+    //         return
+    //             response()->json(['message' => 'User not found!', 'error' => $th], 404);
+    //     }
+    // }
+    public function deleteUser($id) {
+        $result = User::where('id', $id)->delete();
+        if ($result) {
+            return response()->json([
+                'message' => 'Announcement deleted successfully'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Announcement not found'
+            ], 404);
         }
+    }
+    public function restoreUser($id){
+        User::withTrashed()->find($id)->restore();
+        return back();
     }
 }
