@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClassController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,13 @@ Route::Post('/assignments/create', [AssignmentController::class, "addAssignment"
 Route::get('/assignments', [AssignmentController::class, "showAssignment"]);
 Route::PUT('/assignments/edit/{id}', [AssignmentController::class, "editAssignment"]);
 Route::delete('/assignments/delete/{id}', [AssignmentController::class, "deleteAssignment"]);
+
+
+Route::Post('/classes/create', [ClassController::class, "addclass"]);
+Route::get('/classes', [ClassController::class, "showclass"]);
+Route::PUT('/classes/edit/{id}', [ClassController::class, "editclass"]);
+Route::delete('/classes/delete/{id}', [ClassController::class, "deleteclass"]);
+
 
 Route::prefix('user')->group(function () {
     Route::get('/getAll', [UserController::class, 'getAllUsers']);
