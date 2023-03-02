@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\UserController;
+use App\Models\Enrollment;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,12 @@ Route::prefix('user')->group(function () {
     Route::post('/add', [UserController::class, 'addUser']);
     Route::put('/update/{id}', [UserController::class, 'updateUser']);
     Route::put('/delete/{id}/{delete?}', [UserController::class, 'deleteUser']);
+});
+
+Route::prefix('enrollment')->group(function () {
+    Route::get('/getAll', [Enrollment::class, 'getAllEnrollments']);
+    Route::get('/getByID/{id}', [Enrollment::class, 'getEnrollmentByID']);
+    Route::post('/add', [Enrollment::class, 'addEnrollment']);
+    Route::post('/update', [Enrollment::class, 'updateEnrollment']);
+    Route::post('/delete', [Enrollment::class, 'deleteEnrollment']);
 });
