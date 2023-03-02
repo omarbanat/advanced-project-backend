@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class courseCycle extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'startDate',
+        'endDate'
+    ];
+
+    public function courses()
+    {
+        return $this->hasMany(courses::class);
+    }
 }
