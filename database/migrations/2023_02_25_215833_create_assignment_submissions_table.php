@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('assignmentID')->nullable();
             $table->foreign('assignmentID')->references('id')->on('assignments')->nullable();
             $table->integer('grade')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

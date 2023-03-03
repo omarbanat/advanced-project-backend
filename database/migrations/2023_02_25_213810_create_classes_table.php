@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('className')->nullable();
             $table->integer('studentsNumber')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->dateTime('dueDate')->nullable();
             $table->integer('grade')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

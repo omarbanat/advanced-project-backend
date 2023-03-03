@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->integer('durationByDays')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

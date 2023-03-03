@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('courseID')->references('id')->on('courses')->nullable();
             $table->date('startDate')->nullable();
             $table->date('endDate')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

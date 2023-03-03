@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('classSectionID')->references('id')->on('classes_sections')->nullable();
             $table->boolean('cancelled')->default(false);
             $table->longText('cancellationReason')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

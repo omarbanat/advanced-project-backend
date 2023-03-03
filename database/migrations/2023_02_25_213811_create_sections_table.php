@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('sectionName')->nullable();
             $table->integer('capacity')->nullable();
-            $table->boolean('isDeleted')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
