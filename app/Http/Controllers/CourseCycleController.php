@@ -11,9 +11,9 @@ class CourseCycleController extends Controller
     public function getAllCourseCycles()
     {
         try {
-            $courceCycle = CourseCycle::all();
+            $courseCycle = CourseCycle::all();
             return response()->json([
-                'message' => $courceCycle
+                'message' => $courseCycle
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -106,5 +106,19 @@ class CourseCycleController extends Controller
             return
                 response()->json(['message' => 'course Cycle not found!', 'error' => $th], 404);
         }
+    }
+       
+    public function deleteCourseCycle($id)
+    {
+        $courseCycle = CourseCycle::find($id);
+        $courseCycle->delete();
+   
+         return response()->json([
+            "message" => "Deleted successfuly",
+        ]);} 
+
+    public function restoreCourseCycle($id){
+        CourseCycle::withTrashed()->find($id)->restore();
+        return back();
     }
 }
