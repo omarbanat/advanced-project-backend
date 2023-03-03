@@ -17,14 +17,14 @@ class Enrollment extends Model
 
     public function classID()
     {
-        return $this->belongsTo(classModel::class);
+        return $this->belongsTo(classSection::class);
     }
     public function userID()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
     public function courseCycleID()
     {
-        return $this->belongsTo(courseCycle::class);
+        return $this->belongsToMany(courseCycle::class);
     }
 }

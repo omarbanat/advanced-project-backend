@@ -9,6 +9,9 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\CourseCycleController;
+use App\Http\Controllers\EnrollmentController;
+use App\Models\CourseCycle;
 use App\Models\Enrollment;
 
 /*
@@ -61,9 +64,17 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('enrollment')->group(function () {
-    Route::get('/getAll', [Enrollment::class, 'getAllEnrollments']);
-    Route::get('/getByID/{id}', [Enrollment::class, 'getEnrollmentByID']);
-    Route::post('/add', [Enrollment::class, 'addEnrollment']);
-    Route::post('/update', [Enrollment::class, 'updateEnrollment']);
-    Route::post('/delete', [Enrollment::class, 'deleteEnrollment']);
+    Route::get('/getAll', [EnrollmentController::class, 'getAllEnrollments']);
+    Route::get('/getByID/{id}', [EnrollmentController::class, 'getEnrollmentByID']);
+    Route::post('/add', [EnrollmentController::class, 'addEnrollment']);
+    Route::put('/update/{id}', [EnrollmentController::class, 'updateEnrollment']);
+    Route::put('/delete/{id}', [EnrollmentController::class, 'deleteEnrollment']);
+});
+
+Route::prefix('courseCycle')->group(function () {
+    Route::get('/getAll', [CourseCycleController::class, 'getAllCourseCycles']);
+    Route::get('/getByID/{id}', [CourseCycleController::class, 'getCourseCycleByID']);
+    Route::post('/add', [CourseCycleController::class, 'addCourseCycle']);
+    Route::put('/update/{id}', [CourseCycleController::class, 'updateCourseCycle']);
+    Route::put('/delete/{id}', [CourseCycleController::class, 'deleteCourseCycle']);
 });

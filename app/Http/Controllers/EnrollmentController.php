@@ -8,9 +8,27 @@ use Illuminate\Support\Facades\Validator;
 
 class EnrollmentController extends Controller
 {
+
+    public function getAllEnrollments()
+    {
+        try {
+            $enrollments = Enrollment::all();
+            return response()->json([
+                'message' => $enrollments
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Error retreving enrollments...", 'error' => $th
+            ], 500);
+        }
+    }
+
     public function addEnrollment(Request $request)
     {
         $rules = [
+            'userID' => 'required|exists:users,id',
+            'classID' => 'exists:classes,id',
+            'courseCycleID' => 'required|exists:course_cycles,id',
             'cancelled' => 'required|string|max:5',
             'cancellationReason' => 'required|string|max:255',
         ];
@@ -23,11 +41,18 @@ class EnrollmentController extends Controller
         }
 
         $enrollment = Enrollment::create($request->all());
+        $enrollment->userID = $request->userID;
+        $enrollment->classSectionID = $request->input('classSectionID', null);
+        $enrollment->courseCycleID = $request->courseCycleID;
 
-        if ($enrollment->save()) {
+        try {
+            $enrollment->save();
             return response()->json(['message' => 'User enrolled to course successfully'], 201);
-        } else {
-            return response()->json(['message' => 'Unable to enroll user to this course'], 500);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Unable to enroll user to this course',
+                'error' => $th
+            ], 500);
         }
 
         try {
@@ -37,6 +62,35 @@ class EnrollmentController extends Controller
                 'message' => 'Unable to enroll!',
                 'error' => $th
             ]);
+        }
+    }
+
+    public function updateEnrollment(Request $request, $id)
+    {
+        try {
+            $enrollment = Enrollment::findOrFail($id);
+
+            $enrollment->cancelled = $request->input('cancelled');
+            if ($enrollment->cancelled)
+                $enrollment->cancellationReason = $request->input('cancellationReason', $request->cancellationReason);
+            else
+                $enrollment->cancellationReason = null;
+
+            try {
+                $enrollment->update();
+
+                return response()->json([
+                    'message' => 'Enrollment user updated successfully!!',
+                    'data' => $enrollment
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'message' => 'Error occured while updating!',
+                    'error' => $th
+                ], 404);
+            }
+        } catch (\Throwable $th) {
+            response()->json(['message' => 'User not enrolled!', 'error' => $th], 404);
         }
     }
 }
