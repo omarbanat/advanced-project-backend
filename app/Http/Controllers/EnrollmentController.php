@@ -29,8 +29,8 @@ class EnrollmentController extends Controller
             'userID' => 'required|exists:users,id',
             'classID' => 'exists:classes,id',
             'courseCycleID' => 'required|exists:course_cycles,id',
-            'cancelled' => 'required|string|max:5',
-            'cancellationReason' => 'required|string|max:255',
+            'cancelled' => 'string|max:5',
+            'cancellationReason' => 'string|max:255',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -92,5 +92,20 @@ class EnrollmentController extends Controller
         } catch (\Throwable $th) {
             response()->json(['message' => 'User not enrolled!', 'error' => $th], 404);
         }
+    }
+
+       
+    public function deleteEnrollment($id)
+    {
+        $enrollment = Enrollment::find($id);
+        $enrollment->delete();
+   
+         return response()->json([
+            "message" => "Deleted successfuly",
+        ]);} 
+
+    public function restoreEnrollment($id){
+        Enrollment::withTrashed()->find($id)->restore();
+        return back();
     }
 }
