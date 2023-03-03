@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+    use HasFactory;
 
 
     protected $fillable = [
         "sectionName",
         "capacity",
-        
+
     ];
 
-
-    use HasFactory;
+    public function sectionID()
+    {
+        return $this->belongsToMany(classSection::class);
+    }
 }

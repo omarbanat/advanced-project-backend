@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class courseCycle extends Model
+class CourseCycle extends Model
 {
     use HasFactory;
 
@@ -14,8 +14,13 @@ class courseCycle extends Model
         'endDate'
     ];
 
-    public function courses()
+    public function enrollments()
     {
-        return $this->hasMany(courses::class);
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function courseID()
+    {
+        return $this->hasMany(Course::class);
     }
 }
