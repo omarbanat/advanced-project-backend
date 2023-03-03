@@ -22,7 +22,6 @@ return new class extends Migration
             $table->boolean('cancelled')->default(false);
             $table->longText('cancellationReason')->nullable();
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

@@ -9,15 +9,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends Model
 {
-use SoftDeletes;
+    use SoftDeletes;
+    use HasFactory;
 
 
     protected $fillable = [
         "sectionName",
         "capacity",
-        
+
     ];
 
-
-    use HasFactory;
+    public function sectionID()
+    {
+        return $this->belongsToMany(classSection::class);
+    }
 }

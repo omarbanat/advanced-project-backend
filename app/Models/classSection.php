@@ -11,10 +11,14 @@ class classSection extends Model
 {
     use SoftDeletes;
     use HasFactory;
-    protected $fillable = [
-        "grade",
-        "submissionDate",
-        
-    ];
 
+    public function classID()
+    {
+        return $this->hasMany(classModel::class);
+    }
+
+    public function sectionID()
+    {
+        return $this->hasMany(Section::class);
+    }
 }

@@ -18,10 +18,18 @@ class classModel extends Model
     protected $fillable = [
         "className",
         "studentsNumber",
-        
+
     ];
 
     protected $table = 'classes';
 
+    public function classSection()
+    {
+        return $this->belongsTo(classSection::class);
+    }
 
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }

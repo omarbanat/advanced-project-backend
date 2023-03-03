@@ -23,4 +23,9 @@ class User extends Model
         'gender',
         'role'
     ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }
