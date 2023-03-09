@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateattendanceRequest;
 use App\Models\attendance;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;  
 
 class AttendanceController extends Controller
 {

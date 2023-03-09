@@ -12,6 +12,7 @@ use App\Models\CourseCycle;
 use App\Models\Enrollment;
 use App\Http\Controllers\sectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 
 /*
@@ -43,7 +44,6 @@ Route::get('/assignments/restore/{id}', [AssignmentController::class, "restoreAs
 
 
 Route::Post('/attendance/add', [AttendanceController::class, 'addAttendance']);
-Route::get('/attendance/get', [AttendanceController::class, 'getAttendance']);
 Route::PUT('/attendance/edit/{id}', [AttendanceController::class, 'editAttendance']);
 Route::delete('/attendance/delete/{id}', [AttendanceController::class, 'deleteAttendance']);
 Route::get('/attendance/restore/{id}', [AttendanceController::class, 'restoreAttendance']);
@@ -68,12 +68,12 @@ Route::prefix('user')->group(function () {
     Route::get('/getAll/{role?}', [UserController::class, 'getAllUsers']);
     Route::post('/add', [UserController::class, 'addUser']);
     Route::put('/update/{id}', [UserController::class, 'updateUser']);
-    Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
     Route::get('/restore/{id}', [UserController::class, 'restoreUser']);
+    Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
+
 });
 
 Route::prefix('enrollment')->group(function () {
-    Route::get('/getAll', [EnrollmentController::class, 'getAllEnrollments']);
     Route::get('/getByID/{id}', [EnrollmentController::class, 'getEnrollmentByID']);
     Route::post('/add', [EnrollmentController::class, 'addEnrollment']);
     Route::put('/update/{id}', [EnrollmentController::class, 'updateEnrollment']);
@@ -81,9 +81,23 @@ Route::prefix('enrollment')->group(function () {
 });
 
 Route::prefix('courseCycle')->group(function () {
-    Route::get('/getAll', [CourseCycleController::class, 'getAllCourseCycles']);
     Route::get('/getByID/{id}', [CourseCycleController::class, 'getCourseCycleByID']);
     Route::post('/add', [CourseCycleController::class, 'addCourseCycle']);
     Route::put('/update/{id}', [CourseCycleController::class, 'updateCourseCycle']);
     Route::put('/delete/{id}', [CourseCycleController::class, 'deleteCourseCycle']);
 });
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::post('/login', [UserController::class, 'login']);
+
+Route::post('/register', [UserController::class, 'addUser']);
+// protected routes
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/courseCycle/getAll', [CourseCycleController::class, 'getAllCourseCycles']);
+    Route::get('/products/search/{name}', [productController::class,'search']);
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('/enrollment/getAll', [EnrollmentController::class, 'getAllEnrollments']);
+
+}); 
