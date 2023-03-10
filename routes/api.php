@@ -12,7 +12,7 @@ use App\Models\CourseCycle;
 use App\Models\Enrollment;
 use App\Http\Controllers\sectionController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,3 +87,6 @@ Route::prefix('courseCycle')->group(function () {
     Route::put('/update/{id}', [CourseCycleController::class, 'updateCourseCycle']);
     Route::put('/delete/{id}', [CourseCycleController::class, 'deleteCourseCycle']);
 });
+
+
+Route::get('getAttendancesByCourseID/{id}', [AttendanceController::class, 'getAttendancesByCourseID']);
