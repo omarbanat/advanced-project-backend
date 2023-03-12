@@ -116,19 +116,21 @@ class UserController extends Controller
     //             response()->json(['message' => 'User not found!', 'error' => $th], 404);
     //     }
     // }
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
         $result = User::where('id', $id)->delete();
         if ($result) {
             return response()->json([
-                'message' => 'Announcement deleted successfully'
+                'message' => 'User deleted successfully'
             ]);
         } else {
             return response()->json([
-                'message' => 'Announcement not found'
+                'message' => 'User not found'
             ], 404);
         }
     }
-    public function restoreUser($id){
+    public function restoreUser($id)
+    {
         User::withTrashed()->find($id)->restore();
         return back();
     }
