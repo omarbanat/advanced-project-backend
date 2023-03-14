@@ -12,8 +12,9 @@ use App\Models\CourseCycle;
 use App\Models\Enrollment;
 use App\Http\Controllers\sectionController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,3 +102,5 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/enrollment/getAll', [EnrollmentController::class, 'getAllEnrollments']);
 
 }); 
+
+Route::get('getAttendancesByCourseID/{id}', [AttendanceController::class, 'getAttendancesByCourseID']);

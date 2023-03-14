@@ -176,7 +176,8 @@ public function login(Request $request) {
     //             response()->json(['message' => 'User not found!', 'error' => $th], 404);
     //     }
     // }
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
         $result = User::where('id', $id)->delete();
         if ($result) {
             return response()->json([
@@ -188,7 +189,8 @@ public function login(Request $request) {
             ], 404);
         }
     }
-    public function restoreUser($id){
+    public function restoreUser($id)
+    {
         User::withTrashed()->find($id)->restore();
         return back();
     }
