@@ -9,9 +9,9 @@ use App\Models\CourseCycle;
 use App\Models\courses;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 class AttendanceController extends Controller
 {
