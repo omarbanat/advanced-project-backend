@@ -14,26 +14,27 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
 
-public function getAllUsers($role = null)
-{
-    try {
-        if ($role) {
-            return User::where('role', '=', $role)->get();
+    public function getAllUsers($role = null)
+    {
+        try {
+            if ($role) {
+                $user = User::where('role', '=', $role)->get();
+                return response()->json([
+                    'message' => $user,
+                ], 200);
+            }
 
-        $user = User::all();
-        $token = auth()->user()->createToken('myapptoken')->plainTextToken;
-        return response()->json([
-            'message' => $user,
-            'token' => $token
-        ], 200);        }
-
-    } catch (\Throwable $th) {
-        return response()->json([
-            'message' => "Error retrieving all users...",
-            'error' => $th
-        ], 500);
+            $user = User::all();
+            return response()->json([
+                'message' => $user,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => "Error retrieving all users...",
+                'error' => $th
+            ], 500);
+        }
     }
-}
 
 
     public function addUser(Request $request)
@@ -48,15 +49,15 @@ public function getAllUsers($role = null)
             'gender' => 'required|in:male,female',
             'role' => 'required|in:admin,mentor,student',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules);
-    
+
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 422);
         }
-    
+
         $hashedPassword = Hash::make($request->password);
-    
+
         $user = new User();
         $user->fName = $request->input('fName');
         $user->lName = $request->input('lName');
@@ -66,50 +67,52 @@ public function getAllUsers($role = null)
         $user->phoneNumber = $request->input('phoneNumber');
         $user->gender = $request->input('gender');
         $user->role = $request->input('role');
-    
+
         if ($user->save()) {
             $token = $user->createToken('myapptoken')->plainTextToken;
-    
+
             $response = [
                 'user' => $user,
                 'token' => $token
             ];
-    
+
             return response()->json(['data' => $response, 'message' => 'User created successfully'], 201);
         } else {
             return response()->json(['message' => 'Unable to create user'], 500);
         }
     }
 
-public function login(Request $request) {
-    $fields = $request->validate([
-        'email' => 'required|string',
-        'password' => 'required|string'
-    ]);
+    public function login(Request $request)
+    {
+        $fields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string'
+        ]);
 
-    // Check email
-    $user = User::where('email', $fields['email'])->first();
-    if (!$user) {
+        // Check email
+        $user = User::where('email', $fields['email'])->first();
+        if (!$user) {
+            return response([
+                'message' => 'Email not found'
+            ], 401);
+        }
+
+        // Check password
+        if (!Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Wrong password'
+            ], 401);
+        }
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
         return response([
-            'message' => 'Email not found'
-        ], 401);
+            'token' => $token
+        ], 200);
     }
 
-    // Check password
-    if (!Hash::check($fields['password'], $user->password)) {
-        return response([
-            'message' => 'Wrong password'
-        ], 401);
-    }
-
-    $token = $user->createToken('myapptoken')->plainTextToken;
-
-    return response([
-        'token' => $token
-    ], 200);
-}
-
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         auth()->user()->tokens()->delete();
 
         return [
