@@ -14,7 +14,6 @@ class Enrollment extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'cancelled',
         'cancellationReason',
     ];
 

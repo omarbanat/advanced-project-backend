@@ -13,7 +13,7 @@ class CourseCycleController extends Controller
         try {
             $courseCycle = CourseCycle::all();
             return response()->json([
-                'message' => $courseCycle
+                'data' => $courseCycle
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -49,7 +49,8 @@ class CourseCycleController extends Controller
 
             $rules = [
                 'startDate' => 'required|date',
-                'endDate' => 'required|date'
+                'endDate' => 'required|date',
+                // 'courseID' => 'required|id'
             ];
 
             $validator = Validator::make($request->all(), $rules);

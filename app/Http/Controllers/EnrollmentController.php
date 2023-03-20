@@ -29,8 +29,8 @@ class EnrollmentController extends Controller
             'userID' => 'required|exists:users,id',
             'classID' => 'exists:classes,id',
             'courseCycleID' => 'required|exists:course_cycles,id',
-            'cancelled' => 'string|max:5',
-            'cancellationReason' => 'string|max:255',
+            'cancelled' => 'boolean',
+            
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -43,6 +43,9 @@ class EnrollmentController extends Controller
         $enrollment = Enrollment::create($request->all());
         $enrollment->userID = $request->userID;
         $enrollment->classSectionID = $request->input('classSectionID', null);
+        $enrollment->cancellationReason = $request->input('cancellationReason', null);
+        $enrollment->enrolled = $request->input('enrolled', false);
+        $enrollment->cancelled = $request->input('cancelled', false);
         $enrollment->courseCycleID = $request->courseCycleID;
 
         try {
