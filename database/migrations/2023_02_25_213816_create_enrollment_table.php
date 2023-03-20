@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('classSectionID')->nullable();
             $table->foreign('classSectionID')->references('id')->on('classes_sections')->nullable();
             $table->boolean('cancelled')->default(false);
+            $table->boolean('enrolled')->default(false);
             $table->longText('cancellationReason')->nullable();
             $table->softDeletes();
             $table->timestamps();
