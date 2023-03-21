@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('assignment_submission', function (Blueprint $table) {
+        Schema::create('assignment_submissions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('userID')->nullable();
             $table->foreign('userID')->references('id')->on('users')->nullable();
             $table->unsignedBigInteger('assignmentID')->nullable();
             $table->foreign('assignmentID')->references('id')->on('assignments')->nullable();
             $table->integer('grade')->nullable();
+            $table->text('submission')->nullable();
+            $table->datetime('submissionDate')->nullable();
             $table->softDeletes();
 
             $table->timestamps();

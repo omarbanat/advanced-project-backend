@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AssignmentSubmissionController;
+
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseCycleController;
 use App\Http\Controllers\CourseController;
@@ -43,6 +45,10 @@ Route::get('/sections/get', [sectionController::class, "showSection"]);
 Route::PUT('/sections/edit/{id}', [sectionController::class, "editSection"]);
 Route::delete('/sections/delete/{id}', [sectionController::class, "deleteSection"]);
 Route::get('/sections/restore/{id}', [sectionController::class, "restoreSection"]);
+
+
+Route::Post('/assignmentsSubmission/add', [AssignmentSubmissionController::class, "addAssignmentSubmission"]);
+Route::get('/assignmentsSubmission/get', [AssignmentSubmissionController::class, "showAssignmentSubmission"]);
 
 
 

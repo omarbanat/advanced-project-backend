@@ -17,7 +17,8 @@ class assignments extends Model
         "title",
         "description",
         "grade",
-        "dueDate"
+        "dueDate",
     ];
+
 }
 

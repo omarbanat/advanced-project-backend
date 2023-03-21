@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
-            $table->dateTime('dueDate')->nullable();
-            $table->integer('grade')->nullable();
+            $table->datetime('dueDate')->nullable();
+            $table->string('grade')->nullable();
             $table->softDeletes();
 
             $table->timestamps();

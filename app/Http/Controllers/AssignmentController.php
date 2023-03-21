@@ -12,7 +12,7 @@ class AssignmentController extends Controller
         $request->validate([
             'title'=>'required',
             'description'=>'required',
-            'grade'=>'required'
+            'dueDate' => 'required'
         ]);
 
 
@@ -20,6 +20,7 @@ class AssignmentController extends Controller
         $assignment = new Assignments;
          $assignment->title = $request->input('title');
          $assignment->description = $request->input('description');
+         $assignment->dueDate = $request->input('dueDate');
          $assignment->grade = $request->input('grade');
          $assignment->save();
          return response()->json([
