@@ -30,4 +30,13 @@ class User extends Model
     {
         return $this->hasMany(Enrollment::class);
     }
+      public function assignmentSubmission()
+    {
+        return $this->hasMany(assignmentSubmission::class);
+    }
+
+    public function courseID()
+    {
+        return $this->hasMany(courses::class);
+    }
 }
