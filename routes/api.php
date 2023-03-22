@@ -30,7 +30,7 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::Post('/announcements/add', [AnnouncementController::class, "addAnnouncement"]);
+Route::Post('/announcements/create', [AnnouncementController::class, "addAnnouncement"]);
 Route::get('/announcements/get', [AnnouncementController::class, "showAnnouncement"]);
 // Route::get('/announcements/getById/{id}', [AnnouncementController::class, "showAnnouncement"]);
 Route::PUT('/announcements/edit/{id}', [AnnouncementController::class, "editAnnouncement"]);
