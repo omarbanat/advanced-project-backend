@@ -119,3 +119,5 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 }); 
 
 Route::get('getAttendancesByCourseID/{id}', [AttendanceController::class, 'getAttendancesByCourseID']);
+Route::get('attendance/get', [AttendanceController::class, 'getAttendance']);
+Route::get('getUserAttendances/{id}', [AttendanceController::class, 'getUserAttendances']);

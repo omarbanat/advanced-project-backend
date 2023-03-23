@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
-    public function addAttendance(Request $request)
+    public function addAttendance(Request $request, $id)
     {
         $attendance = new attendance;
         error_log($attendance);
+        $attendance->userID = $id;
         $attendance->attendanceType = $request->input('attendanceType');
         $attendance->date = $request->input('date');
         $attendance->save();
@@ -33,6 +34,24 @@ class AttendanceController extends Controller
 
         return response()->json([
             "message" => "Attendance retrieved successfully",
+            "data" => $attendances
+        ]);
+    }
+
+    public function getUserAttendances($id)
+    {
+        // $attendances = attendance::all()->where('userID', '=', $id)->toArray();
+
+        $attendances =
+            DB::table('attendances')
+            ->where('userID', '=', $id)
+            ->get()
+            ->toArray();
+
+        // error_log($attendances);
+
+        return response()->json([
+            "message" => "Attendances retrieved successfully",
             "data" => $attendances
         ]);
     }
