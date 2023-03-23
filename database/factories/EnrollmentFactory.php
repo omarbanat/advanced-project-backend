@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\enrollment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Enrollment>
  */
 class EnrollmentFactory extends Factory
 {
@@ -16,8 +16,10 @@ class EnrollmentFactory extends Factory
      */
     public function definition(): array
     {
+        $cancellationReason = $this->faker->optional()->text(50);
+
         return [
-            //
+            'cancellationReason' => $cancellationReason,
         ];
     }
 }

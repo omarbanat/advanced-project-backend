@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\classSections>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Section>
  */
-class ClassSectionsFactory extends Factory
+class SectionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,8 @@ class ClassSectionsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'sectionName' => $this->faker->word . ' Section',
+            'capacity' => $this->faker->numberBetween(20, 40),
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\attendance>
  */
-class AttendanceFactory extends Factory
+class attendanceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,9 @@ class AttendanceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'userID' => $this->faker->numberBetween(1, 10),
+            'attendanceType' => $this->faker->randomElement(['Present', 'Late', 'Absent']),
+            'date' => $this->faker->date(),
         ];
     }
 }

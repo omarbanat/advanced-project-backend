@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\assignments>
  */
-class AssignmentsFactory extends Factory
+class assignmentsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,10 @@ class AssignmentsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(),
+            'grade' => $this->faker->numberBetween(0, 100),
+            'dueDate' => $this->faker->dateTimeBetween('now', '+1 month')->format('Y-m-d H:i:s'),
         ];
     }
 }

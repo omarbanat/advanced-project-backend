@@ -15,7 +15,10 @@ use App\Http\Controllers\sectionController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\AuthController;
-
+use App\Models\announcements;
+use App\Models\assignments;
+use App\Models\assignmentSubmissions;
+use App\Models\attendance;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +29,32 @@ use App\Http\Controllers\AuthController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+use App\Models\User;
+use App\Models\classModel;
+use App\Models\Section;
+use App\Models\courses;
+use App\Models\CourseCycle;
+use App\Models\Enrollment;
+
+
+
+
+
+Route::get('omar', function () {
+    // $res = User::factory()->count(50)->create();
+    // $res = classModel::factory()->count(10)->create();
+    // $res = Section::factory()->count(5)->create();
+    // $res = courses::factory()->count(10)->create();
+    // $res = CourseCycle::factory()->count(10)->create();
+    // $res = Enrollment::factory()->count(20)->create();
+    // $res = assignments::factory()->count(10)->make();
+    // $res = assignmentSubmissions::factory()->count(10)->make();
+    // $res = announcements::factory()->count(10)->make();
+
+    $res = attendance::factory()->count(10)->make();
+    return $res;
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
