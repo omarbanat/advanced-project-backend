@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AssignmentSubmissionController;
+
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CourseCycleController;
 use App\Http\Controllers\CourseController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\sectionController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,10 @@ Route::get('/sections/get', [sectionController::class, "showSection"]);
 Route::PUT('/sections/edit/{id}', [sectionController::class, "editSection"]);
 Route::delete('/sections/delete/{id}', [sectionController::class, "deleteSection"]);
 Route::get('/sections/restore/{id}', [sectionController::class, "restoreSection"]);
+
+
+Route::Post('/assignmentsSubmission/add', [AssignmentSubmissionController::class, "addAssignmentSubmission"]);
+Route::get('/assignmentsSubmission/get', [AssignmentSubmissionController::class, "showAssignmentSubmission"]);
 
 
 
@@ -80,7 +85,6 @@ Route::prefix('user')->group(function () {
     Route::put('/update/{id}', [UserController::class, 'updateUser']);
     Route::get('/restore/{id}', [UserController::class, 'restoreUser']);
     Route::delete('/delete/{id}', [UserController::class, 'deleteUser']);
-
 });
 
 Route::prefix('enrollment')->group(function () {
@@ -90,7 +94,6 @@ Route::prefix('enrollment')->group(function () {
     Route::put('/edit/{id}', [EnrollmentController::class, 'updateEnrollment']);
     Route::delete('/delete/{id}', [EnrollmentController::class, 'deleteEnrollment']);
     Route::get('/restore/{id}', [EnrollmentController::class, 'restoreEnrollment']);
-
 });
 
 Route::prefix('courseCycle')->group(function () {
@@ -100,7 +103,6 @@ Route::prefix('courseCycle')->group(function () {
     Route::put('/edit/{id}', [CourseCycleController::class, 'updateCourseCycle']);
     Route::delete('/delete/{id}', [CourseCycleController::class, 'deleteCourseCycle']);
     Route::get('/restore/{id}', [CourseCycleController::class, 'restoreCourseCycle']);
-
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -110,13 +112,12 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::post('/register', [UserController::class, 'addUser']);
 // protected routes
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/courseCycle/getAll', [CourseCycleController::class, 'getAllCourseCycles']);
-    Route::get('/products/search/{name}', [productController::class,'search']);
+    Route::get('/products/search/{name}', [productController::class, 'search']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/enrollment/getAll', [EnrollmentController::class, 'getAllEnrollments']);
-
-}); 
+});
 
 Route::get('getAttendancesByCourseID/{id}', [AttendanceController::class, 'getAttendancesByCourseID']);
 Route::get('attendance/get', [AttendanceController::class, 'getAttendance']);

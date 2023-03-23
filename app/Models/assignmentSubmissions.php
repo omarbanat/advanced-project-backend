@@ -16,6 +16,20 @@ class assignmentSubmissions extends Model
     protected $fillable = [
         "grade",
         "submissionDate",
+        "submission"
+        
         
     ];
+     public function classID()
+    {
+        return $this->belongsTo(classSection::class);
+    }
+    public function userID()
+    {
+        return $this->belongsToMany(User::class);
+    }
+    public function assignmetns()
+    {
+        return $this->belongsToMany(assignments::class);
+    }
 }
